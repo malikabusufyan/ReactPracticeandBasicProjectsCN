@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <script crossorigin="" src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin="" src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <title>React App</title>
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const timeTable = {
+            Monday: {
+                9: {
+                    subject: "Maths",
+                    teacher: "Brijesh Mishra",
+                    time: "1 hour"
+                },
+                10: {
+                    subject: "Physics",
+                    teacher: "Sumit Yadav",
+                    time: "1 hour"
+                },
+                11: {
+                    subject: "Chemistry",
+                    teacher: "Vedanti Joshi",
+                    time: "1 hour"
+                },
+                13: {
+                    subject: "English Litrature",
+                    teacher: "Mayur Pandey",
+                    time: "1 hour"
+                },
+                14: {
+                    subject: "Hindi Vyakaran",
+                    teacher: "Sony Desai",
+                    time: "1 hour"
+                },
+                15: {
+                    subject: "PT",
+                    teacher: "Sonu Tyagi",
+                    time: "1 hour"
+                }
+            },
+            Tuesday: {
+                9: {
+                    subject: "Physics",
+                    teacher: "Sumit Yadav",
+                    time: "1 hour"
+                },
+                10: {
+                    subject: "Hindi Sahitya",
+                    teacher: "Ramesh Jha",
+                    time: "1 hour"
+                },
+                11: {
+                    subject: "Environtal Studies",
+                    teacher: "Rakesh Prakash",
+                    time: "1 hour"
+                },
+                13: {
+                    subject: "Biology",
+                    teacher: "Kuldeep Narayan",
+                    time: "1 hour"
+                },
+                14: {
+                    subject: "Maths",
+                    teacher: "Brijesh Mishra",
+                    time: "1 hour"
+                },
+                15: {
+                    subject: "Physics Practical",
+                    teacher: "Sumit Yadav",
+                    time: "1 hour"
+                }
+            },
+            Wednesday: {
+                9: {
+                    subject: "Chemistry",
+                    teacher: "Vedanti Joshi",
+                    time: "1 hour"
+                },
+                10: {
+                    subject: "English Grammar",
+                    teacher: "Aditi Upasane",
+                    time: "1 hour"
+                },
+                11: {
+                    subject: "Maths",
+                    teacher: "Brijesh Mishra",
+                    time: "1 hour"
+                },
+                13: {
+                    subject: "English Litrature",
+                    teacher: "Mayur Pandey",
+                    time: "1 hour"
+                },
+                14: {
+                    subject: "Physics",
+                    teacher: "Sumit Yadav",
+                    time: "1 hour"
+                },
+                15: {
+                    subject: "Chemistry Practical",
+                    teacher: "Vedanti Joshi",
+                    time: "1 hour"
+                }
+            },
+            Thursday: {
+                9: {
+                    subject: "Biology",
+                    teacher: "Kuldeep Narayan",
+                    time: "1 hour"
+                },
+                10: {
+                    subject: "Hindi Sahitya",
+                    teacher: "Ramesh Jha",
+                    time: "1 hour"
+                },
+                11: {
+                    subject: "Chemistry",
+                    teacher: "Vedanti Joshi",
+                    time: "1 hour"
+                },
+                13: {
+                    subject: "Maths",
+                    teacher: "Brijesh Mishra",
+                    time: "1 hour"
+                },
+                14: {
+                    subject: "Physics",
+                    teacher: "Sumit Yadav",
+                    time: "1 hour"
+                },
+                15: {
+                    subject: "Biology Practical",
+                    teacher: "Kuldeep Narayan",
+                    time: "1 hour"
+                }
+            },
+            Friday: {
+                9: {
+                    subject: "English Litrature",
+                    teacher: "Mayur Pandey",
+                    time: "1 hour"
+                },
+                10: {
+                    subject: "Hindi Sahitya",
+                    teacher: "Ramesh Jha",
+                    time: "1 hour"
+                },
+                11: {
+                    subject: "English Grammar",
+                    teacher: "Aditi Upasane",
+                    time: "1 hour"
+                },
+                13: {
+                    subject: "Biology",
+                    teacher: "Kuldeep Narayan",
+                    time: "1 hour"
+                },
+                14: {
+                    subject: "Hindi Vyakaran",
+                    teacher: "Sony Desai",
+                    time: "1 hour"
+                },
+                15: {
+                    subject: "PT",
+                    teacher: "Sonu Tyagi",
+                    time: "1 hour"
+                }
+            }
+        };
+        const App = () => {
+            const days = Object.keys(timeTable); // Extract the days from the timeTable object
+            const times = [9, 10, 11, 12, 13, 14, 15]; // Define the available times
+
+            return (
+                <table border="1">
+                    <caption>School time-table of a class 12th Student.</caption>
+                    <thead>
+                        <tr>
+                            <th></th> {/* Blank cell for the top-left corner */}
+                            {times.map(time => (
+                                <th key={time}>{time}:00 - {time + 1}:00</th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {days.map(day => (
+                            <tr key={day}>
+                                <td>{day}</td> {/* Column for displaying the day */}
+                                {times.map(time => (
+                                    <td key={`${day}-${time}`}>
+                                        {timeTable[day][time] ? (
+                                            <>
+                                                <div>{timeTable[day][time].subject}</div>
+                                                <div>{timeTable[day][time].teacher}</div>
+                                            </>
+                                        ) : (
+                                            <div>No class</div>
+                                        )}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            );
+        };
+
+        const rootElement = ReactDOM.createRoot(document.getElementById("root"));
+        rootElement.render(<App />);
+    </script>
+
+</body>
+
+</html>
