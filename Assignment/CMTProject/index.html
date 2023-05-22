@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <script crossorigin="" src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin="" src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>React App</title>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        let customers = [];
+        const capacity = 25;
+        let seatsLeft = 25;
+
+        const handleFormSubmit = (event) => {
+            event.preventDefault();
+
+            const guestCountInput = document.getElementById("guestCount");
+            const nameInput = document.getElementById("name");
+            const phoneInput = document.getElementById("phone");
+
+            const guestCount = parseInt(guestCountInput.value);
+            const name = nameInput.value.trim();
+            const phone = phoneInput.value.trim();
+
+            if (!name || !phone) {
+                alert("Please enter both name and phone.");
+                return;
+            }
+
+            if (guestCount <= 0) {
+                alert("Guest count should be greater than 0.");
+                return;
+            }
+
+            if (guestCount > seatsLeft) {
+                alert("Guest count exceeds capacity.");
+                return;
+            }
+
+            const customer = {
+                name,
+                phone,
+                count: guestCount,
+                checkin: new Date().toLocaleString(),
+                checkout: "",
+                status: "Click to Checkout",
+            };
+
+            customers.unshift(customer);
+            seatsLeft -= guestCount;
+
+            guestCountInput.value = "";
+            nameInput.value = "";
+            phoneInput.value = "";
+
+            renderApp();
+        };
+
+        const handleCheckout = (index) => {
+            const customer = customers[index];
+
+            if (customer.checkout) {
+                alert("Customer has already checked out.");
+                return;
+            }
+
+            customer.checkout = new Date().toLocaleString();
+            seatsLeft += customer.count;
+            customer.status = customer.checkout;
+
+            renderApp();
+        };
+
+        const handleDelete = (index) => {
+            const customer = customers[index];
+
+            if (!customer.checkout) {
+                seatsLeft += customer.count;
+            }
+
+            customers.splice(index, 1);
+
+            renderApp();
+        };
+
+        const renderApp = () => {
+            const App = () => (
+                <div className="App" style={{ textAlign: "center" }}>
+                    <div>
+                        <h2>Total Capacity: {capacity}</h2>
+                        <h2>Seats Left: {seatsLeft}</h2>
+                    </div>
+
+                    <form onSubmit={handleFormSubmit}>
+                        <div>
+                            <label htmlFor="guestCount">Count:</label>
+                            <input type="number" id="guestCount" required />
+                        </div>
+                        <div>
+                            <label htmlFor="name">Name:</label>
+                            <input type="text" id="name" required />
+                        </div>
+                        <div>
+                            <label htmlFor="phone">Phone:</label>
+                            <input type="text" id="phone" required />
+                        </div>
+                        <div>
+                            <button type="submit">Add Entry</button>
+                        </div>
+                    </form>
+
+                    <table border="1px" style={{ margin: "auto" }}>
+                        <thead>
+                            <tr>
+                                <th>Count</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Status</th>
+                                <th>Remove Entry</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {customers.map((customer, index) => (
+                                <tr key={index}>
+                                    <td>{customer.count}</td>
+                                    <td>{customer.name}</td>
+                                    <td>{customer.phone}</td>
+                                    <td>{customer.checkin}</td>
+                                    <td>
+                                        {customer.checkout ? (
+                                            customer.checkout
+                                        ) : (
+                                            <button onClick={() => handleCheckout(index)}>
+                                                Click to Checkout
+                                            </button>
+                                        )}
+                                    </td>
+                                    <td>{customer.status}</td>
+                                    <td>
+                                        <button onClick={() => handleDelete(index)}>
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            );
+
+            const rootElement = ReactDOM.createRoot(
+                document.getElementById("root")
+            );
+            rootElement.render(<App />);
+        };
+
+        renderApp();
+    </script>
+</body>
+
+</html>

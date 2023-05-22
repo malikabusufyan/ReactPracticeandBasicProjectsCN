@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <script crossorigin="" src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin="" src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <title>React App</title>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const App = () => {
+            const [carCount, setCarCount] = React.useState(0);
+            const [bikeCount, setBikeCount] = React.useState(0);
+            const [scootyCount, setScootyCount] = React.useState(0);
+            const [bicycleCount, setBicycleCount] = React.useState(0);
+
+            const increaseCarCount = () => {
+                setCarCount(carCount + 1);
+            };
+
+            const decreaseCarCount = () => {
+                if (carCount > 0) {
+                    setCarCount(carCount - 1);
+                }
+            };
+
+            const increaseBikeCount = () => {
+                setBikeCount(bikeCount + 1);
+            };
+
+            const decreaseBikeCount = () => {
+                if (bikeCount > 0) {
+                    setBikeCount(bikeCount - 1);
+                }
+            };
+
+            const increaseScootyCount = () => {
+                setScootyCount(scootyCount + 1);
+            };
+
+            const decreaseScootyCount = () => {
+                if (scootyCount > 0) {
+                    setScootyCount(scootyCount - 1);
+                }
+            };
+
+            const increaseBicycleCount = () => {
+                setBicycleCount(bicycleCount + 1);
+            };
+
+            const decreaseBicycleCount = () => {
+                if (bicycleCount > 0) {
+                    setBicycleCount(bicycleCount - 1);
+                }
+            };
+
+            return (
+                <>
+                    <p>List of all the vehicles count in the parking.</p>
+                    <ol>
+                        <li>
+                            <p>
+                                <b>Car: </b> &emsp;
+                                <button onClick={increaseCarCount}>Increase</button>
+                                &emsp;
+                                <button onClick={decreaseCarCount}>Decrease</button>
+                                &emsp; {carCount}
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <b>Bike: </b> &emsp;
+                                <button onClick={increaseBikeCount}>Increase</button>
+                                &emsp;
+                                <button onClick={decreaseBikeCount}>Decrease</button>
+                                &emsp; {bikeCount}
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <b>Scooty: </b> &emsp;
+                                <button onClick={increaseScootyCount}>Increase</button>
+                                &emsp;
+                                <button onClick={decreaseScootyCount}>Decrease</button>
+                                &emsp; {scootyCount}
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                <b>Bicycle:</b> &emsp;
+                                <button onClick={increaseBicycleCount}>Increase</button>
+                                &emsp;
+                                <button onClick={decreaseBicycleCount}>Decrease</button>
+                                &emsp; {bicycleCount}
+                            </p>
+                        </li>
+                    </ol>
+                </>
+            );
+        };
+
+        const rootElement = ReactDOM.createRoot(document.getElementById("root"));
+        rootElement.render(<App />);
+    </script>
+</body>
+
+</html>
